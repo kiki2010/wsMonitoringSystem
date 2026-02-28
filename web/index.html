@@ -5,12 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyCn0FN06svJ4sY5hslkh4uHfYc7CcMk9Ss",
+            authDomain: "wsmultirisk.firebaseapp.com",
+            projectId: "wsmultirisk",
+            storageBucket: "wsmultirisk.firebasestorage.app",
+            messagingSenderId: "1062866362715",
+            appId: "1:1062866362715:web:f23a95d4b14ae0d3f1ba7e",
+            measurementId: "G-CDCRYBK5T2"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
 </head>
 <body>
     <h1>Welcome to MultiRisk Weather Station Monitoring Systems</h1>
     <img src="" alt="welcome">
     <button>
         <a href="dashboard.html">Go to Dashboard</a>
+    </button>
+
+     <button>
+        <a href="userform.html">Go to Userform</a>
     </button>
 </body>
 </html>

@@ -3,9 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MultiRisk Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Supongo que esto es el dashboard</h1>
+    <h1>MultiRisk Dashboard</h1>
+    <div class="dashboard-container">
+        <section class="station-list">
+            <div class="weatherStation card">
+                <div class="station-header">
+                    <img src="img/station.jpg" alt="">
+                    <div class="station-info">
+                        <h2>Estación 1</h2>
+                        <div class="status">
+                            <span class="status-dot online"></span>
+                            <span class="status-text">Online</span>
+                        </div>
+                    </div>
+                    <button class="toggle-details">Detalles ▾</button>
+                </div>
+
+                <div class="station-details">
+                    <p>Coordenadas</p>
+                    <p>Última Actualización</p>
+                </div>
+            </div>
+
+            <div class="weatherStation card">
+                <div class="station-header">
+                    <img src="img/station.jpg" alt="">
+                    <div class="station-info">
+                        <h2>Estación 1</h2>
+                        <div class="status">
+                            <span class="status-dot offline"></span>
+                            <span class="status-text">Offline</span>
+                        </div>
+                    </div>
+                    <button class="toggle-details">Detalles ▾</button>
+                </div>
+
+                <div class="station-details">
+                    <p>Coordenadas</p>
+                    <p>Última Actualización</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="station-controls">
+            <button>Add Weather Station</button>    
+        </section>
+    </div>
+
+    <script type="module" src="js/dashboard.js"></script>
 </body>
 </html>

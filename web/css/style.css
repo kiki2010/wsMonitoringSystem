@@ -1,0 +1,121 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F7F7F7;
+    color: #4B4B4B;
+    margin: 0;
+    padding: 2%;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+}
+
+.station-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    border-radius: 12px;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.station-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.station-header img {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    margin-right: 15px;
+    object-fit: cover;
+    background-color: #4B4B4B;
+}
+
+.station-info h2{
+    margin: 0;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    background-color: #4B4B4B;
+}
+
+.status-dot.online {
+    background-color: #58CC02;
+}
+
+.status-dot.offline {
+    background-color: #FF4B4B;
+}
+
+.toggle-details {
+    background-color: #2B70C9;
+    color: #FFFFFF;
+    border: 2px solid #225AA1;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.toggle-details:hover {
+    background-color: #225AA1;
+    transform: translateY(-2px);
+}
+
+.station-details {
+    display: none;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.station-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.station-controls button {
+    background-color: #2B70C9;
+    color: #FFFFFF;
+    border: 2px solid #225AA1;
+    padding: 12px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.station-controls button:hover {
+    background-color: #225AA1;
+    transform: translateY(-2px);
+}

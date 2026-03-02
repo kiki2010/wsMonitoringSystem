@@ -119,3 +119,121 @@ body {
     background-color: #225AA1;
     transform: translateY(-2px);
 }
+
+/*Modal Overlay*/
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay.open {
+    display: flex;
+}
+
+.modal {
+    background: #FFFFFF;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    margin: 1rem;
+}
+
+.modal h2 {
+    margin: 0 0 20 px;
+    font-size: 1.1rem;
+    color: #4B4B4B;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.modal .form-group {
+    margin-bottom: 14px;
+}
+
+.modal label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #4B4B4B;   
+}
+
+.modal .hint {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 3px;
+}
+
+.modal input[type="text"],
+.modal input[type="file"] {
+    width: 100%;
+    border: 2px solid #225AA1;
+    border-radius: 8px;
+    color: #4B4B4B;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    padding: 9px 12px;
+    outline: 2px;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.modal input:focus {border-color: #2B70C9;}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #E0E0E0;
+}
+
+.btn-cancel {
+    background: #FFFFFF;
+    color: #4B4B4B;
+    border: 2px solid #E0E0E0;
+    padding: 9px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.btn-cancel:hover {background: #F7F7F7;}
+
+.btn-save {
+    background: #FFFFFF;
+    color: #4B4B4B;
+    border: 2px solid #E0E0E0;
+    padding: 9px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.btn-save:hover {background-color: #225AA1; transform: translateY(-2px);}
+.btn-save:disabled {opacity: 0.5; cursor: not-allowed; transform: none;}
+
+.modal .message {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    display: none;
+}
+
+.modal .message.error {background: #FFF0F0; border: 1px solid #FF4B4B; color: #CC0000; display: block;}
+.modal .message.success {background: #F0FFF4; border: 1px solid #58CC02; color: #2D7A00; display: block;}
+

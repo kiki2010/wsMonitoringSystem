@@ -1,13 +1,4 @@
-const toggles = document.querySelectorAll(".toggle-details");
-
-toggles.forEach(btn => {
-    btn.addEventListener("click", () => {
-        const details = btn.closest(".weatherStation").querySelector(".station-details");
-        details.style.display = details.style.display === "block" ? "none" : "block";
-        btn.textContent = details.style.display === "block" ? "Detalles ▴" : "Detalles ▾";
-    });
-});
-
+//Init firebase
 const firebaseConfig = {
     apiKey: "AIzaSyCn0FN06svJ4sY5hslkh4uHfYc7CcMk9Ss",
     authDomain: "wsmultirisk.firebaseapp.com",
@@ -21,19 +12,32 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-const registerForm = document.getElementById('registerForm');
+//Verify user
+auth.onAuthStateChanged(user => {
+    if (user) {
+        console.log("Usuario:", user.email);
 
-registerForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+        document.querySelector('h1').textContent =
+            "Dashboard de " + user.email;
 
-    const email = document.getElementById('regEmail').value;
-    const password = document.getElementById('regPassword').value;
+    } else {
+        window.location.href = 'index.html';
+    }
+});
 
-    auth.createUserWithEmailAndPassword(email, password)
-        .then(userCredential => {
-            console.log('Usuario Registrado', userCredential.user);
-        })
-        .catch(error => {
-            console.error('Error:', error.message);
-        });
+//LogOut
+document.getElementById('logoutBtn').addEventListener('click', () => {
+    auth.signOut().then(() => {
+        window.location.href = 'index.html';
+    });
+});
+
+const toggles = document.querySelectorAll(".toggle-details");
+
+toggles.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const details = btn.closest(".weatherStation").querySelector(".station-details");
+        details.style.display = details.style.display === "block" ? "none" : "block";
+        btn.textContent = details.style.display === "block" ? "Detalles ▴" : "Detalles ▾";
+    });
 });

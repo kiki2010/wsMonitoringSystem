@@ -1,6 +1,3 @@
-const { trim, reject } = require("lodash");
-const { promises } = require("node:dns");
-
 //Init firebase
 const firebaseConfig = {
     apiKey: "AIzaSyCn0FN06svJ4sY5hslkh4uHfYc7CcMk9Ss",
@@ -39,15 +36,84 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
     });
 });
 
-const toggles = document.querySelectorAll(".toggle-details");
-
-toggles.forEach(btn => {
-    btn.addEventListener("click", () => {
-        const details = btn.closest(".weatherStation").querySelector(".station-details");
-        details.style.display = details.style.display === "block" ? "none" : "block";
-        btn.textContent = details.style.display === "block" ? "Detalles ▴" : "Detalles ▾";
-    });
+//See details
+document.getElementById('addStationBtn').addEventListener('click', () => {
+    document.getElementById('modalOverlay').classList.add('open');
 });
+
+document.getElementById('cancelBtn').addEventListener('click', closeModal);
+
+document.getElementById('modalOverlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+});
+
+function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.getElementById('wuStationId').value    = '';
+    document.getElementById('stationName').value    = '';
+    document.getElementById('stationLocation').value= '';
+    document.getElementById('wuApiKey').value       = '';
+    document.getElementById('stationPhoto').value   = '';
+    document.getElementById('modalMsg').className   = 'message';
+}
+
+function showModalMsg(text, type = 'error') {
+    const el = document.getElementById('modalMsg');
+    el.textContent = text;
+    el.className = 'message ' + type;
+}
+
+//Build Card
+function buildCard(stationId, station, adopted) {
+    const div = document.createElement('div');
+    div.className = 'weatherStation card';
+    div.dataset.stationId = stationId;
+
+    const imgHTML = station.photoURL
+        ? `<img src="${station.photoURL}" alt="${station.name}">`
+        : `<img src="" alt="" style="background:#E0E0E0;">`;
+
+    const createdAt = station.createdAt
+        ? new Date(station.createdAt.toMillis()).toLocaleDateString('es-AR')
+        : '—';
+
+    const esPropia = station.registeredBy === currentUser.uid;
+
+    div.innerHTML = `
+        <div class="station-header">
+            ${imgHTML}
+            <div class="station-info">
+                <h2>${adopted.nickname || station.name}</h2>
+                <div class="status">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Sin datos aún</span>
+                </div>
+            </div>
+            <button class="toggle-details">Detalles ▾</button>
+        </div>
+        <div class="station-details">
+            <p><strong>ID WU:</strong> ${station.wuStationId}</p>
+            <p><strong>Ubicación:</strong> ${station.location || '—'}</p>
+            <p><strong>Registrada el:</strong> ${createdAt}</p>
+            <p><strong>API Key:</strong> ${station.apiKey ? '✓ Configurada' : 'No configurada (usará la global)'}</p>
+            ${esPropia ? `<p><strong>Rol:</strong> Propietario</p>` : `<p><strong>Rol:</strong> Adoptada</p>`}
+        </div>`;
+
+    return div;
+}
+
+// ── Toggle detalles ──────────────────────────────────────────
+
+function bindToggles() {
+    document.querySelectorAll('.toggle-details').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const details = btn.closest('.weatherStation').querySelector('.station-details');
+            const open = details.style.display === 'block';
+            details.style.display = open ? 'none' : 'block';
+            btn.textContent = open ? 'Detalles ▾' : 'Detalles ▴';
+        });
+    });
+}
 
 //Save station
 document.getElementById('saveStationBtn').addEventListener('click', async() => {
@@ -107,6 +173,31 @@ document.getElementById('saveStationBtn').addEventListener('click', async() => {
 });
 
 //Load Stations
+async function loadStations(uid) {
+    const list = document.getElementById('stationList');
+    list.innerHTML = '<p style="color:#888;text-align:center;padding:2rem;">Cargando...</p>';
+
+    const adoptedSnap = await db.collection('users').doc(uid)
+        .collection('adoptedStations').get();
+
+    if (adoptedSnap.empty) {
+        list.innerHTML = '<p style="color:#888;text-align:center;padding:2rem;">No tenés estaciones todavía. ¡Agregá la primera!</p>';
+        return;
+    }
+
+    list.innerHTML = '';
+
+    for (const doc of adoptedSnap.docs) {
+        const stationDoc = await db.collection('stations').doc(doc.id).get();
+        if (!stationDoc.exists) continue;
+
+        const station = stationDoc.data();
+        const adopted = doc.data();
+        list.appendChild(buildCard(doc.id, station, adopted));
+    }
+
+    bindToggles();
+}
 
 //ResizeImagetoBase64
 function resizeImageToBase64(file, maxSize=400) {

@@ -13,6 +13,8 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db   = firebase.firestore()
 
+let currentUser = null;
+
 //Verify user
 auth.onAuthStateChanged(async (user) => {
     if (!user) {
@@ -24,7 +26,7 @@ auth.onAuthStateChanged(async (user) => {
     const userDoc = await db.collection('users').doc(user.uid).get();
     const profile = userDoc.exists ? userDoc.data() : {};
     const nombre = profile.displayName || profile.username || user.email;
-    document.getElementById('dashTitle').textContent = 'Dashboard de ' + nombre;
+    document.querySelector('h1').textContent = 'Dashboard de ' + nombre;
 
     loadStations(user.uid);
 });
@@ -49,12 +51,12 @@ document.getElementById('modalOverlay').addEventListener('click', (e) => {
 
 function closeModal() {
     document.getElementById('modalOverlay').classList.remove('open');
-    document.getElementById('wuStationId').value    = '';
-    document.getElementById('stationName').value    = '';
-    document.getElementById('stationLocation').value= '';
-    document.getElementById('wuApiKey').value       = '';
-    document.getElementById('stationPhoto').value   = '';
-    document.getElementById('modalMsg').className   = 'message';
+    document.getElementById('wuStationId').value = '';
+    document.getElementById('wuStationName').value = '';
+    document.getElementById('stationLocation').value = '';
+    document.getElementById('wuApiKey').value = '';
+    document.getElementById('stationPhoto').value = '';
+    document.getElementById('modalMsg').className = 'message';
 }
 
 function showModalMsg(text, type = 'error') {
@@ -102,8 +104,7 @@ function buildCard(stationId, station, adopted) {
     return div;
 }
 
-// ── Toggle detalles ──────────────────────────────────────────
-
+// Detalles
 function bindToggles() {
     document.querySelectorAll('.toggle-details').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -118,7 +119,7 @@ function bindToggles() {
 //Save station
 document.getElementById('saveStationBtn').addEventListener('click', async() => {
     const wuId = document.getElementById('wuStationId').value.trim().toUpperCase();
-    const name = document.getElementById('stationName').value.trim();
+    const name = document.getElementById('wuStationName').value.trim();
     const location = document.getElementById('stationLocation').value.trim();
     const apiKey = document.getElementById('wuApiKey').value.trim();
     const photoFile = document.getElementById('stationPhoto').files[0];
@@ -139,24 +140,29 @@ document.getElementById('saveStationBtn').addEventListener('click', async() => {
         const existing = await db.collection('stations').doc(wuId).get();
 
         if (existing.exists) {
-            await db.collection('users').doc(updateCurrentUser.uid)
+            await db.collection('users').doc(currentUser.uid)
                 .collection('adoptedStations').doc(wuId).set({
-                    wuStationId: wuId,
-                    name: name,
-                    location: location,
-                    apiKey: apiKey,
-                    photoURL: photoBase64,
-                    registeredId: currentUser.uid,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    nickname: name,
+                    adoptedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+        } else {
+            await db.collection('stations').doc(wuId).set({
+                wuStationId: wuId,
+                name: name,
+                location: location,
+                apiKey: apiKey,
+                photoURL: photoBase64,
+                registeredId: currentUser.uid,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            await db.collection('users').doc(currentUser.uid)
+                .collection('adoptedStations').doc(wuId).set({
+                    nickname:  name,
+                    adoptedAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
-                await db.collection('users').doc(currentUser.uid)
-                    .collection('adoptedStations').doc(wuId).set({
-                        nickname:  name,
-                        adoptedAt: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-
-                showModalMsg('¡Estación registrada!', 'success');
+            showModalMsg('¡Estación registrada!', 'success');
         }
 
         setTimeout(() => {
@@ -174,7 +180,7 @@ document.getElementById('saveStationBtn').addEventListener('click', async() => {
 
 //Load Stations
 async function loadStations(uid) {
-    const list = document.getElementById('stationList');
+    const list = document.querySelector('.station-list');
     list.innerHTML = '<p style="color:#888;text-align:center;padding:2rem;">Cargando...</p>';
 
     const adoptedSnap = await db.collection('users').doc(uid)

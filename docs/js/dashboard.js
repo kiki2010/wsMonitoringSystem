@@ -75,11 +75,32 @@ function buildCard(stationId, station, adopted) {
         ? `<img src="${station.photoURL}" alt="${station.name}">`
         : `<img src="" alt="" style="background:#E0E0E0;">`;
 
+    // Estado basado en lo que guardó el script
+    const isOnline = station.status === 'online';
+    const statusClass = isOnline ? 'online' : 'offline';
+    const statusText  = isOnline ? 'Online' : 'Offline';
+
+    // Última actualización legible
+    const lastUpdated = station.lastUpdated
+        ? new Date(station.lastUpdated.toMillis()).toLocaleString('es-AR')
+        : 'Nunca';
+
     const createdAt = station.createdAt
         ? new Date(station.createdAt.toMillis()).toLocaleDateString('es-AR')
         : '—';
 
     const esPropia = station.registeredBy === currentUser.uid;
+
+    // Datos meteorológicos
+    const d = station.lastData;
+    const weatherHTML = d ? `
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+            ${d.temp     !== null && d.temp     !== undefined ? `<div style="background:#F7F7F7;border-radius:8px;padding:8px 14px;text-align:center;"><strong style="color:#2B70C9;font-size:1.1rem;">${d.temp}°C</strong><br><small>Temp.</small></div>` : ''}
+            ${d.humidity !== null && d.humidity !== undefined ? `<div style="background:#F7F7F7;border-radius:8px;padding:8px 14px;text-align:center;"><strong style="color:#2B70C9;font-size:1.1rem;">${d.humidity}%</strong><br><small>Hum.</small></div>` : ''}
+            ${d.windSpeed!== null && d.windSpeed!== undefined ? `<div style="background:#F7F7F7;border-radius:8px;padding:8px 14px;text-align:center;"><strong style="color:#2B70C9;font-size:1.1rem;">${d.windSpeed}</strong><br><small>km/h</small></div>` : ''}
+            ${d.pressure !== null && d.pressure !== undefined ? `<div style="background:#F7F7F7;border-radius:8px;padding:8px 14px;text-align:center;"><strong style="color:#2B70C9;font-size:1.1rem;">${d.pressure}</strong><br><small>hPa</small></div>` : ''}
+            ${d.precip   !== null && d.precip   !== undefined ? `<div style="background:#F7F7F7;border-radius:8px;padding:8px 14px;text-align:center;"><strong style="color:#2B70C9;font-size:1.1rem;">${d.precip}mm</strong><br><small>Precip.</small></div>` : ''}
+        </div>` : '<p style="color:#888;font-size:0.85rem;margin-top:8px;">Sin datos meteorológicos aún</p>';
 
     div.innerHTML = `
         <div class="station-header">
@@ -87,22 +108,25 @@ function buildCard(stationId, station, adopted) {
             <div class="station-info">
                 <h2>${adopted.nickname || station.name}</h2>
                 <div class="status">
-                    <span class="status-dot"></span>
-                    <span class="status-text">Sin datos aún</span>
+                    <span class="status-dot ${statusClass}"></span>
+                    <span class="status-text">${statusText}</span>
                 </div>
             </div>
             <button class="toggle-details">Detalles ▾</button>
         </div>
         <div class="station-details">
+            ${weatherHTML}
             <p><strong>ID WU:</strong> ${station.wuStationId}</p>
             <p><strong>Ubicación:</strong> ${station.location || '—'}</p>
+            <p><strong>Última actualización:</strong> ${lastUpdated}</p>
             <p><strong>Registrada el:</strong> ${createdAt}</p>
             <p><strong>API Key:</strong> ${station.apiKey ? '✓ Configurada' : 'No configurada (usará la global)'}</p>
-            ${esPropia ? `<p><strong>Rol:</strong> Propietario</p>` : `<p><strong>Rol:</strong> Adoptada</p>`}
+            <p><strong>Rol:</strong> ${esPropia ? 'Propietario' : 'Adoptada'}</p>
         </div>`;
 
     return div;
 }
+
 
 // Detalles
 function bindToggles() {

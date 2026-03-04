@@ -1,0 +1,9 @@
+{
+    "name": "update-stations",
+    "version": "1.0.0",
+    "type": "module",
+    "dependencies": {
+        "firebase-admin": "^11.0.0",
+        "node-fetch": "^3.0.0"
+    }
+}

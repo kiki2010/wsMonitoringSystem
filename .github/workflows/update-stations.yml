@@ -1,17 +1,13 @@
-name: Update Weather Stations
+name : Update Weather Stations
 
 on:
   schedule:
-    # Corre cada 4 horas (minuto 0 de las 0, 4, 8, 12, 16, 20 UTC)
     - cron: '0 */4 * * *'
-  
-  # Esto te permite correrlo manualmente desde GitHub para probar
   workflow_dispatch:
 
 jobs:
   update:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -20,22 +16,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-
+      
       - name: Install dependencies
-        run: |
-          cd scripts
-          npm install
+        run: cd scripts && npm install
 
       - name: Run update script
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
           WU_API_KEY: ${{ secrets.WU_API_KEY }}
-        run: |
-          cd scripts
-          node updateStations.js
-```
-
-Una vez que lo subas a GitHub podés probarlo manualmente sin esperar 4 horas:
-```
-Tu repo en GitHub → pestaña Actions → Update Weather Stations → Run workflow
+        run: cd scripts && node updateStations.js

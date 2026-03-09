@@ -1,0 +1,118 @@
+.auth-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+}
+
+.auth-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 380px;
+}
+
+.auth-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #F7F7F7;
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #E0E0E0;
+}
+
+.auth-tab {
+    background: transparent;
+    border: none;
+    color: #888;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.auth-tab.active {
+    background-color: #FFFFFF;
+    color: #4B4B4B;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.form-panel {display: none;}
+.form-panel.active {display: block;}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #4B4B4B;
+}
+
+.form-group input {
+    width: 100%;
+    border: 2px solid #E0E0E0;
+    border-radius: 8px;
+    color: #4B4B4B;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.form-group input:focus { border-color: #2b70c9;}
+
+.btn-submit {
+    width: 100%;
+    background-color: #2b70c9;
+    color: #FFFFFF;
+    border: 2px solid #225aa1;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 0.95rem;
+    margin-top: 8px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #225aa1; transform: translateY(-2px);
+}
+
+.btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.message {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    display: none;
+}
+
+.message.error {
+    background: #fff0f0;
+    border: 1px solid #ff4b4b;
+    color: #cc0000;
+    display: block;
+}
+.message.success {
+    background: #f0fff4;
+    border: 1px solid #58cc02;
+    color: #2d7a00;
+    display: block;
+}

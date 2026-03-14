@@ -50,7 +50,7 @@ body {
     background-color: #4B4B4B;
 }
 
-.station-info h2{
+.station-info h2 {
     margin: 0;
 }
 
@@ -120,7 +120,7 @@ body {
     transform: translateY(-2px);
 }
 
-/*Modal Overlay*/
+/* Modal Overlay */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -145,7 +145,7 @@ body {
 }
 
 .modal h2 {
-    margin: 0 0 20 px;
+    margin: 0 0 20px;
     font-size: 1.1rem;
     color: #4B4B4B;
     padding-bottom: 12px;
@@ -161,7 +161,7 @@ body {
     font-size: 0.85rem;
     font-weight: 600;
     margin-bottom: 5px;
-    color: #4B4B4B;   
+    color: #4B4B4B;
 }
 
 .modal .hint {
@@ -184,7 +184,7 @@ body {
     box-sizing: border-box;
 }
 
-.modal input:focus {border-color: #2B70C9;}
+.modal input:focus { border-color: #2B70C9; }
 
 .modal-actions {
     display: flex;
@@ -208,7 +208,7 @@ body {
     transition: background-color 0.2s;
 }
 
-.btn-cancel:hover {background: #F7F7F7;}
+.btn-cancel:hover { background: #F7F7F7; }
 
 .btn-save {
     background: #FFFFFF;
@@ -223,8 +223,8 @@ body {
     transition: background-color 0.2s;
 }
 
-.btn-save:hover {background-color: #225AA1; transform: translateY(-2px);}
-.btn-save:disabled {opacity: 0.5; cursor: not-allowed; transform: none;}
+.btn-save:hover { background-color: #225AA1; transform: translateY(-2px); }
+.btn-save:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
 .modal .message {
     margin-top: 10px;
@@ -234,6 +234,499 @@ body {
     display: none;
 }
 
-.modal .message.error {background: #FFF0F0; border: 1px solid #FF4B4B; color: #CC0000; display: block;}
-.modal .message.success {background: #F0FFF4; border: 1px solid #58CC02; color: #2D7A00; display: block;}
+.modal .message.error  { background: #FFF0F0; border: 1px solid #FF4B4B; color: #CC0000; display: block; }
+.modal .message.success { background: #F0FFF4; border: 1px solid #58CC02; color: #2D7A00; display: block; }
 
+
+/* ============================================================
+   INDEX / LANDING PAGE STYLES
+   Estas clases solo aplican al index.html.
+   No pisan ninguna clase del dashboard.
+   ============================================================ */
+
+/* ── Anula el padding:2% del body solo en la nav y el hero ──
+   La nav debe ir de borde a borde, sin el padding del body.  */
+nav {
+    /* Compensa el padding:2% del body para que llegue al borde */
+    margin: -2% -2% 0 -2%;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Padding interno propio para alinear contenido */
+    padding: 0 40px;
+    height: 60px;
+    box-sizing: border-box;
+}
+
+/* ── NAV BRAND ── */
+.nav-band {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Limita el logo a un tamaño razonable dentro de la nav */
+.nav-logo-box img {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.nav-logo-box span {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #4B4B4B;
+    white-space: nowrap;
+}
+
+/* ── NAV LINKS ── */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #4B4B4B;
+    text-decoration: none;
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+
+.nav-links a:hover { color: #2B70C9; }
+
+.btn-nav {
+    background-color: #2B70C9;
+    color: #FFFFFF !important;
+    border: 2px solid #225AA1;
+    padding: 7px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    transition: background-color 0.2s, transform 0.2s;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.btn-nav:hover {
+    background-color: #225AA1 !important;
+    transform: translateY(-2px);
+}
+
+/* ── PAGE WRAPPER ── */
+.page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* El body ya tiene padding:2%, el .page no necesita padding extra */
+    padding-top: 20px;
+}
+
+/* ── HERO CARD ── */
+.hero-card {
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    position: relative;
+    min-height: 300px;
+    display: flex;
+    align-items: stretch;
+}
+
+/* Overlay encima de la foto: blanco fuerte a la izquierda → transparente a la derecha
+   Garantiza que el texto siempre sea legible sin importar la foto */
+.hero-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(255,255,255,0.90) 0%,
+        rgba(255,255,255,0.75) 40%,
+        rgba(255,255,255,0.20) 75%,
+        rgba(255,255,255,0.00) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+    padding: 40px 44px;
+}
+
+.hero-text {
+    flex: 1;
+    min-width: 0; /* evita overflow en flex */
+    max-width: 520px;
+}
+
+.hero-text h1 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 800;
+    color: #2C2C2C;
+    margin-bottom: 12px;
+    line-height: 1.2;
+}
+
+.hero-text h1 span { color: #2B70C9; }
+
+.hero-text p {
+    font-size: 0.92rem;
+    color: #4B4B4B;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+.hero-ctas {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* ── BOTONES DEL HERO ── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    text-decoration: none;
+    border: none;
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background-color: #2B70C9;
+    color: #FFFFFF;
+    border: 2px solid #225AA1;
+}
+.btn-primary:hover { background-color: #225AA1; transform: translateY(-2px); }
+
+.btn-outline {
+    background-color: #FFFFFF;
+    color: #4B4B4B;
+    border: 2px solid #D0D0D0;
+}
+.btn-outline:hover { background-color: #F7F7F7; transform: translateY(-2px); }
+
+/* ── SUQUI CARD (dentro del hero) ── */
+.suqui-card {
+    flex-shrink: 0;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    /* Tamaño fijo — el gif no se desborda */
+    width: 180px;
+    height: 180px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* El gif ocupa exactamente la card, sin desbordarse */
+.suqui-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* ── SECTION TITLE ── */
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #4B4B4B;
+    margin-bottom: 14px;
+}
+
+/* ── IA GRID ── */
+.ia-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Imagen dentro de las cards de IA */
+.card-img {
+    width: 100%;
+    height: 160px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #888;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.card-img.fire-ph  { background: linear-gradient(135deg, #FFE8D8, #FFD0B0); }
+.card-img.water-ph { background: linear-gradient(135deg, #D8EEFF, #B0D4FF); }
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.card-icon.fire  { background-color: #FFF0E8; }
+.card-icon.water { background-color: #E8F3FF; }
+
+.card-header h2 {
+    font-size: 0.98rem;
+    font-weight: 700;
+    margin: 0 0 2px;
+    color: #4B4B4B;
+}
+
+.card-header small { font-size: 0.74rem; color: #999; }
+
+.card-body {
+    font-size: 0.87rem;
+    color: #4B4B4B;
+    line-height: 1.65;
+    flex: 1;
+}
+
+/* ── BADGES DE RIESGO ── */
+.risk-badges {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.74rem;
+    font-weight: 600;
+}
+
+.badge-green  { background: #F0FFF4; border: 1.5px solid #58CC02; color: #2D7A00; }
+.badge-yellow { background: #FFFBEA; border: 1.5px solid #F5C400; color: #7A6000; }
+.badge-red    { background: #FFF0F0; border: 1.5px solid #FF4B4B; color: #CC0000; }
+
+.dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot.green  { background: #58CC02; }
+.dot.yellow { background: #F5C400; }
+.dot.red    { background: #FF4B4B; }
+
+/* ── ODS ── */
+.ods-card {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    padding: 24px;
+    display: flex;
+    gap: 0;
+    min-height: 190px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ods-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.ods-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+    margin-right: 18px;
+}
+
+.ods-btn {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 2px solid #E0E0E0;
+    background: #F7F7F7;
+    color: #4B4B4B;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    width: 76px;
+}
+
+.ods-btn:hover { border-color: #2B70C9; color: #2B70C9; }
+
+.ods-btn.active {
+    background-color: #2B70C9;
+    color: #FFFFFF;
+    border-color: #225AA1;
+}
+
+.ods-divider {
+    width: 1px;
+    background: #E0E0E0;
+    margin-right: 18px;
+    align-self: stretch;
+    flex-shrink: 0;
+}
+
+.ods-panel {
+    flex: 1;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    animation: fadeIn 0.2s ease;
+}
+
+.ods-panel.active { display: flex; }
+
+.ods-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #fff;
+    width: fit-content;
+    margin-bottom: 2px;
+}
+
+.ods-panel h3 {
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: #2C2C2C;
+}
+
+.ods-panel p {
+    font-size: 0.87rem;
+    color: #4B4B4B;
+    line-height: 1.65;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(6px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── FOOTER ── */
+footer {
+    background-color: #FFFFFF;
+    border-top: 1px solid #E0E0E0;
+    text-align: center;
+    padding: 18px 40px;
+    font-size: 0.8rem;
+    color: #888;
+    /* Compensa el padding del body para ir de borde a borde */
+    margin: 20px -2% -2%;
+}
+
+footer a { color: #2B70C9; font-weight: 600; }
+footer a:hover { text-decoration: underline; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* Tablet: 600px – 900px */
+@media (max-width: 900px) {
+    nav { padding: 0 24px; }
+
+    .hero-inner { padding: 32px 28px; gap: 20px; }
+
+    .suqui-card { width: 150px; height: 150px; }
+
+    .ia-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+}
+
+/* Mobile: < 600px */
+@media (max-width: 600px) {
+    /* Nav: solo logo + botón dashboard */
+    nav { padding: 0 16px; }
+    .nav-links li:not(:last-child) { display: none; }
+
+    /* Hero apilado verticalmente */
+    .hero-card::after {
+        background: rgba(255,255,255,0.82);
+    }
+    .hero-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 28px 20px;
+        gap: 20px;
+    }
+    .hero-text { max-width: 100%; }
+    .suqui-card {
+        width: 100%;
+        height: 160px;
+        border-radius: 10px;
+    }
+
+    /* IA cards en columna */
+    .ia-grid { grid-template-columns: 1fr; }
+
+    /* ODS apilado */
+    .ods-card { flex-direction: column; }
+    .ods-sidebar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-right: 0;
+        margin-bottom: 14px;
+    }
+    .ods-btn { width: auto; }
+    .ods-divider { display: none; }
+
+    /* Footer */
+    footer { padding: 16px 20px; }
+}

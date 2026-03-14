@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cba MultiRisk AI</title>
     <link rel="stylesheet" href="css/style.css">
 
     <script type="module">
@@ -31,20 +31,131 @@
     </script>
 
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+    <script src="js/index.js"></script>
 </head>
 <body>
-    <h1>Welcome to MultiRisk Weather Station Monitoring Systems</h1>
+    <nav>
+        <div class="nav-band">
+            <div class="nav-logo-box">
+                <img src="img/multirisklogo.png" alt="Logo">
+                <span>Cba MultiRisk AI</span>    
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="https://www.instagram.com/cbamultirisk/"> Instagram </a>
+            </li>
+            <li>
+                <a href="https://play.google.com/store/apps/details?id=com.chiaracatalini.cbamultirisk"> Play Store </a>
+            </li>
+            <li>
+                <a href="userform.html" class="btn-nav"> Dashboard </a>
+            </li>
+        </ul>
+    </nav>
 
-    <section class="station-controls">
-        <button>
-            <a href="dashboard.html">Go to Dashboard</a>
-        </button>
-    </section>
+    <div class="page">
+        <div class="hero-card">
+            <img src="img/background.jpeg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+            <div class="hero-inner">
+                <div class="hero-text">
+                    <h1>Inteligencia climática<br><span>hiperlocal</span> para Córdoba</h1>
+                    <p>MultiRisk transforma datos de estaciones meteorológicas cercanas en alertas claras de incendio e inundación. IA que protege comunidades.</p>
+                    <div class="hero-ctas">
+                        <a href="dashboard.html" class="btn btn-primary">→ Ir al Dashboard</a>
+                        <a href="#ia" class="btn btn-outline">Conocer el proyecto</a>
+                    </div>
+                </div>
+                <div class="suqui-card">
+                    <img src="img/4.gif" alt="Suqui">
+                </div>
+            </div>
+        </div>
+        <!-- IA SECTION -->
+        <div id="ia">
+            <p class="section-title">Modelos de Inteligencia Artificial</p>
+            <div class="ia-grid">
+    
+                <div class="card">
+                    <div class="card-img fire-ph"><img src="img/atardecer.JPG" alt=""></div>
+                    <div class="card-header">
+                        <div class="card-icon fire">🔥</div>
+                        <div>
+                            <h2>IA Incendios</h2>
+                            <small>Red neuronal · TensorFlow Lite</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        Analiza temperatura, viento, humedad e índice SPI de la estación más cercana para estimar el riesgo hiperlocal de incendio en tiempo real.
+                    </div>
+                    <div class="risk-badges">
+                        <span class="badge badge-green"><span class="dot green"></span>Bajo</span>
+                        <span class="badge badge-yellow"><span class="dot yellow"></span>Medio</span>
+                        <span class="badge badge-red"><span class="dot red"></span>Alto</span>
+                    </div>
+                </div>
+    
+                <div class="card">
+                    <div class="card-img water-ph"><img src="img/sierras.jpg" alt=""></div>
+                    <div class="card-header">
+                        <div class="card-icon water">🌊</div>
+                        <div>
+                            <h2>IA Inundaciones</h2>
+                            <small>Red neuronal · TensorFlow Lite</small>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        Procesa precipitación acumulada y variables locales para anticipar riesgo de desbordamiento en zonas vulnerables del área metropolitana.
+                    </div>
+                    <div class="risk-badges">
+                        <span class="badge badge-green"><span class="dot green"></span>Bajo</span>
+                        <span class="badge badge-yellow"><span class="dot yellow"></span>Medio</span>
+                        <span class="badge badge-red"><span class="dot red"></span>Alto</span>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    
+        <!-- ODS -->
+        <div>
+            <p class="section-title">Alineado con los ODS</p>
+            <div class="ods-card">
+                <div class="ods-sidebar">
+                    <button class="ods-btn active" onclick="showODS(this,'ods11')">ODS 11</button>
+                    <button class="ods-btn" onclick="showODS(this,'ods13')">ODS 13</button>
+                    <button class="ods-btn" onclick="showODS(this,'ods3')">ODS 3</button>
+                    <button class="ods-btn" onclick="showODS(this,'ods6')">ODS 6</button>
+                </div>
+                <div class="ods-divider"></div>
+    
+                <div id="ods11" class="ods-panel active">
+                    <span class="ods-tag" style="background:#E6B800;color:#fff;">ODS 11 — Ciudades Sostenibles</span>
+                    <h3>Ciudades y Comunidades Sostenibles</h3>
+                    <p>MultiRisk fortalece la resiliencia urbana ante desastres. Al alertar con anticipación a vecinos y municipios, reduce los daños por incendios e inundaciones en zonas urbanas y periurbanas de Córdoba.</p>
+                </div>
+                <div id="ods13" class="ods-panel">
+                    <span class="ods-tag" style="background:#3FA454;">ODS 13 — Acción por el Clima</span>
+                    <h3>Educación y Adaptación Climática</h3>
+                    <p>A través de Suqui y el módulo de gamificación, la app educa sobre hábitos preventivos y promueve una ciudadanía más consciente sobre los riesgos ambientales de su entorno.</p>
+                </div>
+                <div id="ods3" class="ods-panel">
+                    <span class="ods-tag" style="background:#4DA65E;">ODS 3 — Salud y Bienestar</span>
+                    <h3>Protección de la Vida Humana</h3>
+                    <p>Las alertas tempranas automáticas permiten tomar decisiones a tiempo. Un sistema de notificaciones en segundo plano avisa cuando el riesgo supera el umbral crítico.</p>
+                </div>
+                <div id="ods6" class="ods-panel">
+                    <span class="ods-tag" style="background:#26BCE7;">ODS 6 — Agua y Ecosistemas</span>
+                    <h3>Protección del Agua y la Biodiversidad</h3>
+                    <p>La prevención de incendios evita que las cenizas contaminen el río Suquía. Cuidar los ecosistemas serranos es también proteger el agua que consumen las comunidades cordobesas.</p>
+                </div>
+            </div>
+        </div>
+    
+    </div>
 
-    <section class="station-controls">
-        <button>
-            <a href="userform.html">Go to Userform</a>
-        </button>
-    </section>
+    <footer>
+        Cba MultiRisk AI || Chiara Catalini - Sofia Leal 2026
+    </footer>
 </body>
 </html>

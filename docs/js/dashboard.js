@@ -113,6 +113,7 @@ function buildCard(stationId, station, adopted) {
                 </div>
             </div>
             <button class="toggle-details">Detalles ▾</button>
+            <button class="btn-delete" data-id="${stationId}">🗑 Eliminar</button>
         </div>
         <div class="station-details">
             ${weatherHTML}
@@ -137,8 +138,30 @@ function bindToggles() {
             details.style.display = open ? 'none' : 'block';
             btn.textContent = open ? 'Detalles ▾' : 'Detalles ▴';
         });
+        bindDeleteButtons();
     });
 }
+
+//delete station
+function bindDeleteButtons() {
+    document.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const stationId = btn.dataset.id;
+            const confirmar = confirm('¿Eliminar esta estación de tu lista?');
+            if (!confirmar) return;
+
+            try {
+                await db.collection('users').doc(currentUser.uid)
+                    .collection('adoptedStations').doc(stationId).delete();
+                loadStations(currentUser.uid);
+            } catch (err) {
+                alert('Error al eliminar: ' + err.message);
+            }
+        });
+    });
+}
+
 
 //Save station
 document.getElementById('saveStationBtn').addEventListener('click', async() => {
